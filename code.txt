@@ -1,0 +1,960 @@
+#include<iostream> //Header File
+#include<istream> //Header File
+#include<fstream> //Header File
+#include<stdlib.h> //Header File
+#include<string.h> //Header File
+#include<conio.h> //Header File
+#include<stdio.h> //Header File
+#include <windows.h>//Header File
+#include <unistd.h> //Header File
+#include <time.h> //Header File
+using namespace std;
+
+class shopping
+{
+	private:
+		int pcode; //declaration
+		float price; //declaration
+		float dis; //declaration
+		string pname; //declaration
+		
+	public:
+		void main(); //Function Prototype
+		void help(); //Function Prototype
+		void menu(); //Function Prototype
+		void addministrator(); //Function Prototype
+		void buyer(); //Function Prototype
+		void add(); //Function Prototype
+		void edit(); //Function Prototype
+		void rem(); //Function Prototype
+		void list(); //Function Prototype
+		void rep(); //Function Prototype
+		void login(); //Function Prototype
+		void registr(); //Function Prototype
+		void aboutus(); //Function Prototype
+		void forgot(); //Function Prototype
+		void details(); //Function Prototype
+		void logout(); //Function Prototype
+		void mainmenu(); //Function Prototype
+		void salary(); //Function Prototype
+		void loading(); //Function Prototype
+};
+void shopping :: main() //Main Function 
+{
+		system ("color 3"); //Setting The Color Of Console
+        int choice; //declaration
+        loading();
+        cout<<"***********************************************************************\n";
+        cout<<"*                                                                     *\n";
+        cout<<"*                     Welcome to login page                           *\n";
+        cout<<"*                                                                     *\n";
+        cout<<"***********************************************************************\n";
+        cout<<"\t\n|                 1.LOGIN                          :                  |"<<endl;
+        cout<<"\t\n|                 2.REGISTER                       :                  |"<<endl;;
+        cout<<"\t\n|                 3.FORGOT PASSWORD (or) USERNAME  :                  |"<<endl;
+        cout<<"\t\n|                 4.Help                           :                  |"<<endl;
+        cout<<"\t\n|                 5.Exit                           :                  |"<<endl;
+        cout<<"\t\n|_____________________________________________________________________|"<<endl;
+        cout<<"\t\nEnter your choice :";
+        cin>>choice;
+        cout<<endl;
+        switch(choice)
+        {
+                case 1:
+                        login();
+                        break; //end of case 1
+                case 2:
+                        registr();
+                        break; //end of case 2
+                case 3:
+                		forgot();
+                        break; //end of case 3
+                case 4:
+                		help();
+                        break; //end of case 4
+                case 5:
+						exit(0);
+                        cout<<"Thanks for using this program\nThis program is created by Kushan Thavidu\n\n";
+                        break; //end of case 5
+                default:
+                        system("cls"); //To Clear The Screen
+                        cout<<"You've made a mistake , give it a try again\n"<<endl; 
+                        main();
+        }
+        
+}
+void shopping :: help()
+{
+	system("cls"); //To Clear The Screen
+	cout<<"***********************************************************************\n";
+    cout<<"*                                                                     *\n";
+    cout<<"*                     Welcome to help page                            *\n";
+    cout<<"*                                                                     *\n";
+    cout<<"***********************************************************************\n";
+	cout << "\n";
+	fstream myFile;
+	myFile.open("help.txt",ios::in); //File Open
+	if (myFile.is_open())
+	{
+		string line;
+		while (getline(myFile, line))
+		{
+			cout << line << endl;
+		}
+		myFile.close(); //File close
+		main();
+	}
+}
+
+void shopping :: login()
+{
+        int count; //declaration
+        string user,pass,u,p; //declaration
+        system("cls");
+        cout<<"please enter the following details"<<endl;
+        cout<<"USERNAME :";
+        cin>>user;
+        cout<<"PASSWORD :";
+        cin>>pass;
+        
+        ifstream input("database.txt"); //File Open
+        while(input>>u>>p)
+        {
+                if(u==user && p==pass)
+        
+                {
+                        count=1;
+                        system("cls"); //To Clear The Screen
+                }
+        }
+        input.close(); //File close
+        if(count==1)
+        {
+                cout<<"\nHello"<<user<<"\nLOGIN SUCESS\nWe're glad that you're here.\nThanks for logging in\n";
+                system("cls");
+                mainmenu();
+   
+        }
+        else
+        {
+                system("cls"); //To Clear The Screen
+				cout<<"\nLOGIN ERROR\nPlease check your username and password\n";
+                main();
+        }
+}
+
+void shopping :: logout()
+{
+	system("cls"); //To Clear The Screen
+	cout << "Logout sucessfully.\n";
+	main();
+}
+
+void shopping :: mainmenu()
+{
+	            system ("color 3"); 
+        		int select; //declaration
+        		system("cls"); //To Clear The Screen
+        		cout<<"***********************************************************************\n";
+    			cout<<"*                                                                     *\n";
+    			cout<<"*                     Welcome to Main page                            *\n";
+    			cout<<"*                                                                     *\n";
+   				cout<<"***********************************************************************\n";
+        		cout<<"[\n                      1.Product Menu    :                             ]"<<endl;
+        		cout<<"[\n                      2.About us        :                             ]"<<endl;
+        		cout<<"[\n                      3.Company Detail  :                             ]"<<endl;
+        		cout<<"[\n                      4.Logout          :                             ]"<<endl;
+        		cout<<"[\n                      5.Exit            :                             ]"<<endl;
+        		cout<<"[\n______________________________________________________________________]"<<endl;
+        		cout<<"\nEnter your choice :";
+        		cin>>select;
+        		cout<<endl;
+        		switch(select)
+        		{
+                	case 1:
+                        menu();
+                        break; //end of case 1
+                	case 2:
+                        aboutus();
+                        break; //end of case 2
+                	case 3:
+                		details();
+                		break; //end of case 3
+                	case 4:
+                		logout();
+                		break; //end of case 4
+                	case 5:
+                        cout<<"Thanks for using this program\n\n";
+                        break; //end of case 5
+                	default:
+                        system("cls"); //To Clear The Screen
+                        cout<<"You've made a mistake , give it a try again\n"<<endl; 
+                        main();
+        }
+
+}
+
+void shopping :: registr()
+{
+        
+        string reguser,regpass,ru,rp; //declaration
+        system("cls");
+        cout<<"Enter the username :";
+        cin>>reguser;
+        cout<<"\nEnter the password :";
+        cin>>regpass;
+        
+        ofstream reg("database.txt",ios::app); //File open
+        reg<<reguser<<' '<<regpass<<endl;
+        system("cls");
+        cout<<"\nRegistration Sucessful\n";
+        main();
+        
+        
+}
+
+void shopping :: aboutus()
+{
+		
+		system("cls"); //To Clear The Screen
+		int back; //declaration
+		retry:
+		cout << "***********************************************************************\n";
+		cout << "*                     Suprime FURNITURE SHOP                          *\n";
+		cout << "*                                                                     *\n";
+		cout << "*                          ABOUT US                                   *\n";
+		cout << "***********************************************************************\n";
+		cout << "\n";
+		cout << "We are Suprime furnitures who have been working with you for more than 25\n";
+		cout << "years for excellent and high quality furniture and providing you with \n";
+		cout << "your furniture  needs.  Starting from the city nationwide service     \n";
+		cout << "throughout the country, paying more attention to the needs of customers\n";
+		cout << ",facing competitors and other risks.\n";
+		cout << "\n";
+		cout << "Back to main menu : Please enter the 1\n";
+		cin >> back;
+		if (back==1)
+		{
+			system("cls"); //To Clear The Screen
+			mainmenu();	
+		}
+		else
+		system("cls"); //To Clear The Screen
+		cout << "Please enter the correct anwser.\n";
+		cout << "\n";
+		goto retry;
+}
+
+void shopping :: details()
+{
+		system("cls"); //To Clear The Screen
+		int back; //declaration
+		retry:
+		cout << "***********************************************************************\n";
+		cout << "*                      Suprime FURNITURE SHOP                         *\n";
+		cout << "*                                                                     *\n";
+		cout << "*                          Company Details                            *\n";
+		cout << "***********************************************************************\n";
+		cout << "\n";
+		cout << "                    Address    : No 25,\n";
+		cout << "                               : Samanpura,\n";
+		cout << "                               : Dambulla road,\n";
+		cout << "                               : Kurunegala.\n";
+		cout <<"\n";
+		cout << "                    contact us : 071-9018489\n";
+		cout << "                               : 072-9742189\n";
+		cout <<"\n";
+		cout << "                    Email      : Smfurniture@gmail.com\n";
+		cout << "\n";
+		cout << "Back to main menu : Please enter the 1\n";
+				cin >> back;
+		if (back==1)
+		{
+			system("cls"); //To Clear The Screen
+			mainmenu();	
+		}
+		else
+		system("cls"); //To Clear The Screen
+		cout << "Please enter the correct anwser.\n";
+		cout << "\n";
+		goto retry;
+	
+}
+
+void shopping :: forgot()
+{
+        int ch; //declaration
+        system("cls"); //To Clear The Screen
+        cout<<"Forgotten ? We're here for help\n";
+        cout<<"1.Search your id by username"<<endl;
+        cout<<"2.Search your id by password"<<endl;
+        cout<<"3.Main menu"<<endl;
+        cout<<"Enter your choice :";
+        cin>>ch;
+        switch(ch)
+        {
+                case 1:
+                {
+                        int count=0;
+                        string searchuser,su,sp;
+                        cout<<"\nEnter your remembered username :";
+                        cin>>searchuser;
+                        
+                        ifstream searchu("database.txt");
+                        while(searchu>>su>>sp)
+                        {
+                                if(su==searchuser)
+                                {
+                                        count=1;
+                                }
+                        }
+                        searchu.close();
+                        if(count==1)
+                        {
+                                cout<<"\n\nHurray, account found\n";
+                                cout<<"\nYour password is "<<sp;
+                                cin.get();
+                                cin.get();
+                                system("cls"); //To Clear The Screen
+                                main();
+                        }
+                        else
+                        {
+                                cout<<"\nSorry, Your userID is not found in our database\n";
+                                cout<<"\nPlease kindly contact your system administrator for more details \n";
+                                cin.get();
+                                cin.get();
+                                main();
+                        }
+                        break; //end of case 1
+                }
+                case 2:
+                {
+                        int count=0;
+                        string searchpass,su2,sp2;
+                        cout<<"\nEnter the remembered password :";
+                        cin>>searchpass;
+                        
+                        ifstream searchp("database.txt"); //File Open
+                        while(searchp>>su2>>sp2)
+                        {
+                                if(sp2==searchpass)
+                                {
+                                        count=1;
+                                }       
+                        }
+                        searchp.close(); //File close
+                        if(count==1)
+                        {
+                                cout<<"\nYour password is found in the database \n";
+                                cout<<"\nYour Id is : "<<su2;
+                                cin.get();
+                                cin.get();
+                                system("cls"); //To Clear The Screen
+                                main();
+                        }
+                        else
+                        {
+                                cout<<"Sorry, We cannot found your password in our database \n";
+                                cout<<"\nkindly contact your administrator for more information\n";
+                                cin.get();
+                                cin.get();
+                                main();
+                        }
+                
+                        break; //end of case 2
+                }
+                
+                case 3:
+                {
+                        cin.get();
+                        main(); 
+                } //end of case 3
+                default:
+                        cout<<"Sorry, You entered wrong choice. Kindly try again"<<endl;
+                        forgot();
+        }
+}
+void shopping :: menu()
+{
+	m:
+	int choice; //declaration
+	string email; //declaration
+	string pass; //declaration
+	system("cls"); //To Clear The Screen
+	cout << "***********************************************************************\n";
+	cout << "*                                                                     *\n";
+	cout << "*                 Welcome to product login page                       *\n";
+	cout << "*                                                                     *\n";
+	cout << "***********************************************************************\n";
+    cout << "                             1.Admin :\n";
+    cout << "\n";
+    cout << "                             2.Buyer :\n";
+    cout << "\n";
+    cout << "                             3.Back  :\n";
+    cout << "\n";
+    cout << "                             4.Exit  :\n";
+    cout << "\n";
+    cout << "please select the number :";
+    cout << "\n";
+    cin >> choice;
+    
+    switch(choice)
+    {
+    	case 1:
+    		cout <<"Please enter the username :";
+    		cin >> email;
+    		cout << "\n";
+    		cout <<"Please enter the username :";
+    		cin >> pass;
+    		cout << "\n";
+    		
+    		if (email=="admin" && pass=="admin@123")
+    		{
+    			addministrator();
+			}
+			else
+			{system("cls"); //To Clear The Screen
+			cout << "\nYou can't access. Please trey again.";
+			goto m;
+			}
+			break; //end of case 1
+			
+		case 2:
+			{
+				buyer ();
+				break; //end of case 2
+			}
+		case 3:
+			{
+				mainmenu();
+				break; //end of case 3
+			}
+		case 4:
+			{
+				cout<<"Thanks for using this program\n\n";
+				exit(0);
+				break; //end of case 4
+			}
+	
+		default:
+			{
+				cout << "\nplease select the given option.";
+			}
+}
+	goto m;
+}
+
+void shopping :: addministrator()
+{
+	m:
+	int choice; //declaration
+	system("cls"); //To Clear The Screen
+	cout << "***********************************************************************\n";
+	cout << "*                                                                     *\n";
+	cout << "*                     Welcome to Items page                           *\n";
+	cout << "*                                                                     *\n";
+	cout << "***********************************************************************\n";
+    cout << "                        1.Add the product        :\n";
+    cout << "\n";
+    cout << "                        2.Modify the product     :\n";
+    cout << "\n";
+    cout << "                        3.Delete the product     :\n";
+    cout << "\n";
+    cout << "                        4.Salary Calculater      :\n";
+    cout << "\n";
+    cout << "                        5.Back to menu page      :\n";
+    cout << "\n";
+    cout << "please select the number :";
+    cout << "\n";
+    cin >> choice;
+    
+    switch(choice)
+    {
+    	case 1:
+    	add();
+    	break; //end of case 1
+    	
+    	case 2:
+    	edit();
+    	break; //end of case 2
+    	
+    	case 3:
+    	rem();
+    	break; //end of case 3
+    	
+    	case 4:
+    	salary();
+    	break; //end of case 4
+    	
+    	case 5:
+    	menu();
+    	break; //end of case 5
+    	
+    	default:
+    		cout << "\nInvalid choice. Please try again.\n\n";
+	}
+	goto m;
+}
+
+void shopping :: buyer()
+{
+	m:
+	int choice; //declaration
+	system("cls"); //To Clear The Screen
+	cout << "***********************************************************************\n";
+	cout << "*                                                                     *\n";
+	cout << "*                     Welcome to Items page                           *\n";
+	cout << "*                                                                     *\n";
+	cout << "***********************************************************************\n";
+    cout << "                          1.Buy product  :\n";
+    cout << "\n";
+    cout << "                          2.Back to menu :\n";
+    cout << "\n";
+    cout << "\nplease select the number :\n";
+    cin >> choice;
+    
+    switch (choice)
+    {
+    	case 1:
+    	rep();
+    	break; //end of case 1
+    	
+    	case 2:
+    	menu();
+    	break; //end of case 2
+    	
+    	default:
+    	cout << "\nInvalid choice.\n";
+	}
+	goto m;
+}
+
+void shopping :: add()
+{
+	m:
+	fstream data;
+	int c; //declaration
+	int token=0; //declaration
+	float p; //declaration
+	float d; //declaration
+	string n; //declaration
+	system("cls"); //To Clear The Screen
+	cout << "***********************************************************************\n";
+	cout << "*                                                                     *\n";
+	cout << "*                     Welcome to Items page                           *\n";
+	cout << "*                                                                     *\n";
+	cout << "***********************************************************************\n";
+    cout << "                         1.product ID             :";
+    cin>>pcode;
+    cout << "\n";
+    cout << "                         2.Name of product        :";
+    cin>>pname;
+    cout << "\n";
+    cout << "                         3.Price of product       :";
+    cin>>price;
+    cout << "\n";
+    cout << "                         4.Discount of product    :";
+    cin>>dis;
+    cout << "\n";
+    cout << "please select the number :";
+    
+    data.open("items.txt",ios::in); //File Open
+    if (!data)
+    {
+    	data.open("items.txt",ios::app|ios::out); //File Open
+    	data <<" "<<pcode<<" "<<pname<<" "<<price<<" "<<dis<<"\n";
+    	data.close();
+	}
+	else
+	{
+		data>>c>>n>>p>>d;
+		
+		while(!data.eof())
+		{
+			if (c==pcode)
+			{
+				token++;
+			}
+			data>>c>>n>>p>>d;
+		}
+		data.close();
+	}
+	
+	if (token==1)
+	{
+		goto m;
+	}
+	else
+	{
+		data.open("items.txt",ios::app|ios::out); //File open
+    	data <<" "<<pcode<<" "<<pname<<" "<<price<<" "<<dis<<"\n";
+		data.close(); //File close
+	}
+	
+	cout <<"\nRecored insert.\n";
+	
+}
+void shopping :: edit()
+{
+	fstream data,data1;
+	int pkey; //declaration
+	int token=0; //declaration
+	int c; //declaration
+	float p; //declaration
+	float d; //declaration
+	string n; //declaration
+	system("cls"); //To Clear The Screen
+	cout << "\nModify the record :\n";
+	cout << "\nproduct code      :\n";
+	cin >> pkey;
+	
+	data.open("items.txt",ios::in); //File open
+	if(!data)
+	{
+		cout << "\nFile dosen't exist.\n";
+	}
+	else
+	{
+		system("cls"); //To Clear The Screen
+		data.open("items.txt",ios::app|ios::out); //File open
+		data >>pcode>>pname>>price>>dis;
+		
+		while(!data.eof())
+		{
+			if(pkey==pcode)
+			{
+				cout << "Product new code :";
+				cout <<"/n";
+				cin >> c;
+				cout << "Name of product  :";
+				cout <<"/n";
+				cin >> n;
+				cout << "Product price    :";
+				cout <<"/n";
+				cin >> p;
+				cout << "Discount         :";
+				cout <<"/n";
+				cin >> dis;
+				data1<<" "<<c<<" "<<n<<" "<<p<<" "<<d<<"\n";
+				cout << "\nRecorded Edited.\n";
+				token++;
+			}
+			else
+			{
+				data1<<" "<<pcode<<" "<<pname<<" "<<price<<" "<<dis<<"\n";
+			}
+			
+			data>>pcode>>pname>>price>>dis;
+		}
+		data.close(); //File close
+		data.close(); //File close
+		
+		remove ("items.txt");
+		rename ("items1.txt","items.txt");
+		
+		if (token==0)
+		{
+			cout <<"Recored not founed.";
+		}
+	}
+}
+
+void shopping :: rem()
+{
+	fstream data,data1;
+	int pkey; //declaration
+	int token=0; //declaration
+	system("cls"); //To Clear The Screen
+	cout << "\nDelete the produt.\n";
+	cout << "\nProduct code :";
+	cin >> pkey;
+	data.open("items.txt",ios::in); //File Open
+	if(!data)
+	{
+		cout << "\nFile dosen't exsit.\n";
+	}
+	else
+	{
+		data1.open("items1.txt",ios::app|ios::out);
+		data>>pcode>>pname>>price>>dis;
+		
+		while(!data.eof())
+		{
+			if(pcode==pkey)
+			{
+				cout << "\nProduct deleted succesfully.\n";
+				token++;
+			}
+			else
+			{
+				data<<" "<<pcode<<" "<<pname<<" "<<price<<" "<<dis<<"\n";
+			}
+			data>>pcode>>pname>>price>>dis;
+		}
+		data.close(); //File close
+		data1.close(); //File close
+		remove("items.txt");
+		rename("items1.txt","items.txt");
+		
+		if (token==0)
+		{
+			cout << "\nRecord not found\n";
+		}
+	}
+}
+
+void shopping :: list()
+{
+	system("cls"); //To Clear The Screen
+	fstream data;
+	data.open("items.txt",ios::in); //File open
+	cout << "__________________________________________________________________________\n";
+	cout << "ProNo\t\tName\t\tPrice\n";
+	cout << "__________________________________________________________________________\n";
+	data>>pcode>>pname>>price>>dis;
+	while (!data.eof())
+	{
+		cout<<pcode<<"\t\t"<<pname<<"\t\t"<<price<<"\n";
+		data>>pcode>>pname>>price>>dis;
+	}
+	data.close(); //File close
+}
+
+void shopping :: rep()
+{
+	m:
+	fstream data;
+	int arrc[100]; //declaration
+	int arrq[100]; //declaration
+	char choice; //declaration
+	int c=0; //declaration
+	float amount=0; //declaration
+	float dis=0; //declaration
+	float total=0; //declaration
+	
+	cout << "\n\t\t Recipt";
+	data.open("items.txt",ios::in); //File open
+	if (!data)
+	{
+		cout<< "\nEmpty database.\n";
+	}
+	else
+	{
+		system("cls"); //To Clear The Screen
+		data.close();
+		list();
+		cout << "__________________________________________________________________________\n";
+		cout << "                                                                          \n";
+		cout << "                                                                          \n";
+		cout << "                            Please place the oder                         \n";
+		cout << "                                                                          \n";
+		cout << "__________________________________________________________________________\n";
+		do
+		{
+			cout << "\n Enter the product code :";
+			cin>>arrc[c];
+			cout << "\n Enter the quantity     :";
+			cin>>arrq[c];
+			for(int i=0;i<c;i++)
+			{
+				if(arrc[c]==arrc[i])
+				{
+					cout << "\nDuplicate Product code. please try again.\n";
+					goto m;
+				}
+			}
+			c++;
+			cout << "\nDo you want buy anothe product (y/n) :";
+			cin >> choice;
+		}
+		while (choice=='y'&&'Y');
+		
+		cout << "\n\n\t\t_____________________________Recipt_____________________________\n";
+		cout << "\nProduct No\tProduct name\t Producr quantity\tPrice\tAmount\tDiscount\n";
+		
+		for(int i=0;i<c;i++)
+		{
+			data.open("items.txt",ios::in);
+			data>>pcode>>pname>>price>>dis;
+			while(!data.eof())
+			{
+				if(pcode==arrc[i])
+				{
+					amount=price*arrq[i];
+					dis=amount-(amount*dis/100);
+					total = total+dis;
+					cout<<"\n"<<pcode<<"\t\t"<<pname<<"\t\t"<<arrq[i]<<"\t\t"<<price<<"\t\t"<<amount<<"\t\t"<<dis;
+				}
+				data>>pcode>>pname>>price>>dis;
+			}
+		}
+		data.close(); //File close
+	}
+	cout << "\n\n___________________________________________________________";
+	cout << "\nTotal Amount:"<<total;
+}
+void shopping :: salary()
+{
+	string empname; //declaration
+	string department; //declaration
+	float Bsalary; //declaration
+	float otrate; //declaration
+	float othours; //declaration
+	float otamount; //declaration
+	int Leaveday; //declaration
+	float Centralbank1,Centralbank2,Centralbank3; //declaration
+	float Bouns,Increments,Welfare; //declaration
+	float Netsalary,Netsalary3; //declaration
+	float incometax1,incometax2,incometax3; //declaration
+	system("cls"); //To Clear The Screen
+	cout <<    "***   EMPLOYEE SALARY SHEET   ***" << endl;
+	cout << "*"<< "\n";
+	cout << "*"<< "\n";
+	
+	
+	// Employee details and Basic Salary
+	cout << "Enter the Emloyee Name : ";
+	cin >> empname;
+	cout << "*"<< "\n";
+	cout << "Enter the Departmant   : ";
+	cin >> department;
+	cout << "*"<< "\n";
+	cout << "Enter the Basic salary : ";
+	cin >> Bsalary;
+	cout << "*"<< "\n";
+	cout << "*"<< "\n";
+	
+	// OT Calculation
+	cout << "Enter the OT Rates     : ";
+	cin >> otrate;
+	cout << "*"<< "\n";
+	cout << "Enter the OT Hours     : ";
+	cin >> othours;
+	cout << "*"<< "\n";
+	cout << "All OT Amount          : " << otrate* othours << endl;
+	cout << "*"<< "\n";
+	cout << "*"<< "\n";
+	
+	// Net salary 01 Calculation
+	cout << "Net Salary 1           : " << Bsalary+otrate* othours << endl;
+	cout << "*"<< "\n";
+	cout << "*"<< "\n";
+	
+	// Day pay Calculation
+	cout << "Day Pay (25 Days)      : " << Bsalary/25 << endl;
+	cout << "*"<< "\n";
+	cout << "Enter the leave day    : ";
+	cin >> Leaveday;
+	cout << "*"<< "\n";
+	cout << "No Pay                 : " << (Bsalary/25)*Leaveday << endl;
+	cout << "*"<< "\n";
+	cout << "*"<< "\n";
+	
+	// Net salary 02 Calculation
+	cout << "Net Salary 2           : " << (Bsalary+otrate* othours)-((Bsalary/25)*Leaveday)<< endl;
+	cout << "*"<< "\n";
+	cout << "*"<< "\n";
+	
+	// EPF,ETF and central bank Calculation
+	cout << "EPF (company  - 8% )   : " << (Bsalary *0.08) << endl;
+	cout << "EPF (Employee - 12%)   : " << (Bsalary*0.12) << endl;
+	cout << "ETF (company  - 3% )   : " << (Bsalary*0.03) << endl;
+	cout << "*"<< "\n";
+	Centralbank1 = Bsalary*0.08;
+	Centralbank2 = Bsalary*0.12;
+	Centralbank3 = Bsalary*0.03;
+	cout << "Central Bank Transfer  : " << Centralbank1+Centralbank2+Centralbank3 << endl;
+	cout << "*"<< "\n";
+	cout << "*"<< "\n";
+	
+	// Net salary 03 Calculation
+	cout << "Net Salary 3           : " << ((Bsalary+otrate* othours)-((Bsalary/25)*Leaveday)) - Centralbank2 << endl;
+	cout << "*"<< "\n";
+	cout << "*"<< "\n";
+	
+	// Bouns,Increments & Welfare salary 03 Calculation
+	cout << "Bouns                  : " ;
+	cin >> Bouns;
+	cout << "*"<< "\n";
+	cout << "Increments             : " ;
+	cin >> Increments;
+	cout << "*"<< "\n";
+	cout << "Welfare                : " ;
+	cin >> Welfare;
+	cout << "*"<< "\n";
+	cout << "*"<< "\n";
+	
+	// Income Tax Calculation
+	Netsalary3 = ((Bsalary+otrate* othours)-((Bsalary/25)*Leaveday)) - Centralbank2;
+	Netsalary  = (Netsalary3+Bouns+Increments)-Welfare;
+	if (Netsalary >= 500000)
+	{
+		cout << "Income Tax             : " << Netsalary*0.08 << endl;
+	}
+	else if (Netsalary >= 200000)
+	{
+		cout << "Income Tax             : " << Netsalary*0.06 << endl;
+	}
+	else if (Netsalary >= 160000)
+	{
+		cout << "Income Tax             : " << Netsalary*0.03 << endl;
+	}
+	else
+	{
+		cout << "Income Tax             : " << 0.00 << endl;
+	}
+	cout << "*"<< "\n";
+	cout << "*"<< "\n";
+	
+	// Gross Tax Calculation
+	Netsalary3 = ((Bsalary+otrate* othours)-((Bsalary/25)*Leaveday)) - Centralbank2;
+	Netsalary  = (Netsalary3+Bouns+Increments)-Welfare;
+	if (Netsalary >= 500000)
+	{
+		cout << "Gross Salary           : " << Netsalary - (Netsalary*0.08) << endl;
+	}
+	else if (Netsalary >= 200000)
+	{
+		cout << "Gross Salary           : " << Netsalary - (Netsalary*0.06) << endl;
+	}
+	else if (Netsalary >= 160000)
+	{
+		cout << "Gross Salary           : " << Netsalary - (Netsalary*0.03) << endl;
+	}	
+	else
+	{
+		cout << "Gross Salary           :" << Netsalary << endl;
+	}
+	salary();
+	
+	;
+}
+
+void shopping :: loading()
+{
+	system("color 03");
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n";
+	cout <<"\tLoading...\n";
+	char x = 219;
+	for (int i=0; i<35;i++)
+	{
+		cout <<x;
+		if(i<10)
+		Sleep(300);
+		if(i>=10 && i<20)
+		Sleep(150);
+		if(i<10)
+		Sleep(25);
+		
+	}
+	system("cls");
+	cout << "\n\n";
+	cout <<"\t\tWelcome to Supriem furniture shop\n\n\n";
+}
+
+int main()
+{
+	shopping s;
+	s.main();
+}
